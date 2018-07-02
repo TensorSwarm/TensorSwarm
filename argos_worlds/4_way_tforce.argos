@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<argos-configuration>
+  <!-- ************************* -->
+  <!-- * General configuration * -->
+  <!-- ************************* -->
+  <framework>
+    <system threads="3"/>
+    <experiment length="0" ticks_per_second="10" random_seed="124"/>
+  </framework>
+
+  <!-- *************** -->
+  <!-- * Controllers * -->
+  <!-- *************** -->
+  <controllers>
+    <tensor_swarm_bot_controller id="argos_ros_bot" library="libargos_ros_bot.so">
+      <actuators>
+        <differential_steering implementation="default"/>
+      </actuators>
+      <sensors>
+        <differential_steering implementation="default"/>
+        <footbot_lidar implementation="default" show_rays="false"/>
+      </sensors>
+      <params stopWithoutSubscriberCount="10" />
+    </tensor_swarm_bot_controller>
+  </controllers>
+
+  <loop_functions library="libargos_loop_function.so" label="ROSServiceLoopFunction" />
+
+  <!-- *********************** -->
+  <!-- * Arena configuration * -->
+  <!-- *********************** -->
+  <arena size="10, 10, 1" center="0,0,0.5">
+        <box id="top1" size="2,0.1,0.2" movable="false">
+          <body position="1.4,0.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="top2" size="2,0.1,0.2" movable="false">
+          <body position="1.4,-0.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="left1" size="0.1,2,0.2" movable="false">
+          <body position="0.4,1.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="left2" size="0.1,2,0.2" movable="false">
+          <body position="-0.4,1.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="right1" size="0.1,2,0.2" movable="false">
+          <body position="0.4,-1.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="right2" size="0.1,2,0.2" movable="false">
+          <body position="-0.4,-1.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="bottom1" size="2,0.1,0.2" movable="false">
+            <body position="-1.4,0.4,0" orientation="0,0,0"/>
+        </box>
+        <box id="bottom2" size="2,0.1,0.2" movable="false">
+            <body position="-1.4,-0.4,0" orientation="0,0,0"/>
+         </box>
+
+         <box id="atop1" size="2,0.1,0.2" movable="false">
+           <body position="1.4,2.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="atop2" size="2,0.1,0.2" movable="false">
+           <body position="1.4,-2.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="aleft1" size="0.1,2,0.2" movable="false">
+           <body position="2.4,1.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="aleft2" size="0.1,2,0.2" movable="false">
+           <body position="-2.4,1.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="aright1" size="0.1,2,0.2" movable="false">
+           <body position="2.4,-1.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="aright2" size="0.1,2,0.2" movable="false">
+           <body position="-2.4,-1.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="abottom1" size="2,0.1,0.2" movable="false">
+             <body position="-1.4,2.4,0" orientation="0,0,0"/>
+         </box>
+         <box id="abottom2" size="2,0.1,0.2" movable="false">
+             <body position="-1.4,-2.4,0" orientation="0,0,0"/>
+          </box>
+
+           <box id="btop1" size="2,0.1,0.2" movable="false">
+             <body position="1.4,3.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="btop2" size="2,0.1,0.2" movable="false">
+             <body position="1.4,-3.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="bleft1" size="0.1,2,0.2" movable="false">
+             <body position="3.4,1.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="bbleft2" size="0.1,2,0.2" movable="false">
+             <body position="-3.4,1.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="bright1" size="0.1,2,0.2" movable="false">
+             <body position="3.4,-1.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="bright2" size="0.1,2,0.2" movable="false">
+             <body position="-3.4,-1.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="bbottom1" size="2,0.1,0.2" movable="false">
+               <body position="-1.4,3.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="bbottom2" size="2,0.1,0.2" movable="false">
+               <body position="-1.4,-3.4,0" orientation="0,0,0"/>
+            </box>
+
+           <box id="ctop1" size="2,0.1,0.2" movable="false">
+             <body position="4.4,0.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="ctop2" size="2,0.1,0.2" movable="false">
+             <body position="4.4,-0.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="cleft1" size="0.1,2,0.2" movable="false">
+             <body position="0.4,4.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="cbleft2" size="0.1,2,0.2" movable="false">
+             <body position="-0.4,4.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="cright1" size="0.1,2,0.2" movable="false">
+             <body position="0.4,-4.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="cright2" size="0.1,2,0.2" movable="false">
+             <body position="-0.4,-4.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="cbottom1" size="2,0.1,0.2" movable="false">
+               <body position="-4.4,0.4,0" orientation="0,0,0"/>
+           </box>
+           <box id="cbottom2" size="2,0.1,0.2" movable="false">
+               <body position="-4.4,-0.4,0" orientation="0,0,0"/>
+            </box>
+
+
+    <!--
+        The robots.
+    -->
+    <distribute>
+      <position method="uniform" min="-10.0,-10,0" max="10.0,10.0,0"/>
+      <orientation method="constant" values="0,0,0"/>
+      <entity quantity="4" max_trials="100">
+        <foot-bot id="bot">
+          <controller config="argos_ros_bot"/>
+        </foot-bot>
+      </entity>
+    </distribute>
+  </arena>
+
+  <!-- ******************* -->
+  <!-- * Physics engines * -->
+  <!-- ******************* -->
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+
+  <!-- ********* -->
+  <!-- * Media * -->
+  <!-- ********* -->
+  <media>
+  </media>
+
+  <!-- ****************** -->
+  <!-- * Visualization  * -->
+  <!-- ****************** -->
+  <visualization>
+
+      <qt-opengl lua_editor="false"/>
+
+  </visualization>
+</argos-configuration>

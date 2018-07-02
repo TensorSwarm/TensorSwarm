@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<argos-configuration>
+    <!-- ************************* -->
+    <!-- * General configuration * -->
+    <!-- ************************* -->
+    <framework>
+        <system threads="3"/>
+        <experiment length="0" ticks_per_second="10" random_seed="124"/>
+    </framework>
+
+    <!-- *************** -->
+    <!-- * Controllers * -->
+    <!-- *************** -->
+    <controllers>
+        <tensor_swarm_bot_controller id="argos_ros_bot" library="libargos_ros_bot.so">
+            <actuators>
+                <differential_steering implementation="default"/>
+            </actuators>
+            <sensors>
+                <differential_steering implementation="default"/>
+                <footbot_lidar implementation="default" show_rays="false"/>
+            </sensors>
+            <params stopWithoutSubscriberCount="10" />
+        </tensor_swarm_bot_controller>
+    </controllers>
+
+    <loop_functions library="libargos_loop_function.so" label="ROSServiceLoopFunction" />
+
+    <!-- *********************** -->
+    <!-- * Arena configuration * -->
+    <!-- *********************** -->
+    <arena size="10, 10, 1" center="0,0,0.5">
+        <box id="left" size="6,0.1,0.2" movable="false">
+            <body position="0.0,3,0" orientation="0,0,0"/>
+        </box>
+        <box id="right" size="6,0.1,0.2" movable="false">
+            <body position="0.0,-3,0" orientation="0,0,0"/>
+        </box>
+        <box id="top" size="0.1,6.0,0.2" movable="false">
+            <body position="3,0.0,0" orientation="0,0,0"/>
+        </box>
+        <box id="bottom" size="0.1,6,0.2" movable="false">
+            <body position="-3,0.0,0" orientation="0,0,0"/>
+        </box>
+
+        <box id="inner_left" size="4,0.1,0.2" movable="false">
+            <body position="0.0,2,0" orientation="0,0,0"/>
+        </box>
+        <box id="inner_right" size="4,0.1,0.2" movable="false">
+            <body position="0.0,-2,0" orientation="0,0,0"/>
+        </box>
+        <box id="inner_top" size="0.1,4.0,0.2" movable="false">
+            <body position="2,0.0,0" orientation="0,0,0"/>
+        </box>
+        <box id="inner_bottom" size="0.1,4,0.2" movable="false">
+            <body position="-2,0.0,0" orientation="0,0,0"/>
+        </box>
+
+
+        <!--
+            The robots.
+        -->
+        <distribute>
+            <position method="uniform" min="-10.0,-10,0" max="10.0,10.0,0"/>
+            <orientation method="constant" values="0,0,0"/>
+            <entity quantity="24" max_trials="100">
+                <foot-bot id="bot">
+                    <controller config="argos_ros_bot"/>
+                </foot-bot>
+            </entity>
+        </distribute>
+    </arena>
+
+    <!-- ******************* -->
+    <!-- * Physics engines * -->
+    <!-- ******************* -->
+    <physics_engines>
+        <dynamics2d id="dyn2d"/>
+    </physics_engines>
+
+    <!-- ********* -->
+    <!-- * Media * -->
+    <!-- ********* -->
+    <media>
+    </media>
+
+    <!-- ****************** -->
+    <!-- * Visualization  * -->
+    <!-- ****************** -->
+    <visualization>
+
+        <qt-opengl lua_editor="false"/>
+
+    </visualization>
+</argos-configuration>

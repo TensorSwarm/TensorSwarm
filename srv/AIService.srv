@@ -1,0 +1,12 @@
+# Copyright (C) 2018 deeplearningrobotics.ai
+geometry_msgs/Twist[] twists
+# If this is not size 0 rests robots to specified pose.
+geometry_msgs/Pose2D[] reset_poses
+# If this is not size 0 set new robot goal pose.
+geometry_msgs/Pose2D[] goal_poses
+---
+tensorswarm/Observation[] observations
+float32[] rewards
+bool[] done
+
+
