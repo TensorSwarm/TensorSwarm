@@ -11,7 +11,7 @@ It connects the open source robot swarm simulation [Argos 3](https://github.com/
 A working neural network configuration is already provided following the ideas from [Towards Optimally Decentralized Multi-Robot Collision Avoidance via
 Deep Reinforcement Learning](https://arxiv.org/abs/1709.10082)
 
-Videos of the framwork in action can be found here:
+A video of the framwork in action can be found here: https://www.youtube.com/watch?v=GDV5NgrER5U
 
 # Features
 
