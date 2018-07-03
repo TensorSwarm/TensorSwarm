@@ -2,6 +2,9 @@
 
 # Introduction
 
+*This framework was developed in private time and just released. You WILL run into problems when trying to use it. Please create issues for problems you encounter and I will do my best to
+resolve them*.
+
 TensorSwarm is an open source framework for reinforcement learning of robot swarms. Each robot in the swarm uses the same single behaviour policy with the included neural network,
 but different approaches are also supported.
 
@@ -37,7 +40,7 @@ ROS Kinetic is required which can be found [here](http://wiki.ros.org/kinetic/In
 
 Note that ROS does not support Python 3, so all python dependencies must be installed for Python 2.
 
-```pip install tensorflow-gpu``
+`pip install tensorflow-gpu`
 
 If you want to use the Tensorforce integration you also need to install it as described [here](https://github.com/reinforceio/tensorforce)
 
