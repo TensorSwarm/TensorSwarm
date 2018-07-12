@@ -89,7 +89,9 @@ To run this experiments execute in your catkin work space:
 
 For each simulation window you have to hit FastForward (>> Button) to get the simulations running as they all start paused by default.
 
+# Contact
 
+For personal request or commercial support write to: ap@deeplearningrobotics.com
 
 
 
