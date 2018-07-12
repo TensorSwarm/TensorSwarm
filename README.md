@@ -91,7 +91,8 @@ For each simulation window you have to hit FastForward (>> Button) to get the si
 
 # Contact
 
-For personal request or commercial support write to: ap@deeplearningrobotics.com
+For personal requests or commercial support write to: ai@deeplearningrobotics.ai
+
 
 
 
