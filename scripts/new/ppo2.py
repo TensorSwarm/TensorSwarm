@@ -274,7 +274,8 @@ def learn(policy, env, nsteps, total_timesteps, ent_coef, lr,
         if states is None: # nonrecurrent version
             inds = np.arange(nbatch)
             for _ in range(noptepochs):
-                #np.random.shuffle(inds)
+                if nminibatches > 1:
+                    np.random.shuffle(inds)
                 for start in range(0, nbatch, nbatch_train):
                     end = start + nbatch_train
                     mbinds = inds[start:end]
@@ -312,10 +313,13 @@ def learn(policy, env, nsteps, total_timesteps, ent_coef, lr,
             logger.logkv('eprewmean', safemean([epinfo['r'] for epinfo in epinfobuf]))
             logger.logkv('eplenmean', safemean([epinfo['l'] for epinfo in epinfobuf]))
             logger.logkv('time_elapsed', tnow - tfirststart)
+            logger.logkv('learning_rate ', lrnow)
             for (lossval, lossname) in zip(lossvals, model.loss_names):
                 logger.logkv(lossname, lossval)
             logger.dumpkvs()
+
             board_logger.log_scalar("eprewmean", safemean([epinfo['r'] for epinfo in epinfobuf]), update)
+            board_logger.log_scalar("learning_Rate", lrnow, update)
             board_logger.flush()
         if save_interval and (update % save_interval == 0 or update == 1) and logger.get_dir():
             checkdir = osp.join(logger.get_dir(), 'checkpoints')

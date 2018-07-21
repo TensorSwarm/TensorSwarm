@@ -163,7 +163,8 @@ class ArgosEnvironment(gym.Env):
 
         t = Twist()
         # Scaling fwd. velocity such that the robot drives forward in general.
-        t.linear.x = (actions[0]+1.0)/3.0
+
+        t.linear.x = (np.clip(actions[0], -1, 1)+1.0)/3.0
         # Scaling angular speed such that the robots rotates with more agility.
         t.angular.z = actions[1] * 2
 

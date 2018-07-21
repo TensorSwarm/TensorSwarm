@@ -241,15 +241,15 @@ class RobotPolicy(object):
         self.value = value
 
     def net(self, laser, rel_goal, velocities):
-        net = tf.layers.conv1d(laser, 32, 5, strides=2, activation=tf.nn.relu)
-        net = tf.layers.conv1d(net, 32, 3, strides=2, activation=tf.nn.relu)
+        net = tf.layers.conv1d(laser, 32, 5, strides=2, activation=tf.nn.leaky_relu)
+        net = tf.layers.conv1d(net, 32, 3, strides=2, activation=tf.nn.leaky_relu)
         net = tf.layers.flatten(net)
-        net = tf.layers.dense(net, 256, activation=tf.nn.relu)
+        net = tf.layers.dense(net, 256, activation=tf.nn.leaky_relu)
 
 
         net = tf.concat(axis=1, values=[rel_goal, velocities, net])
-        net = tf.layers.dense(net, 256, activation=tf.nn.relu)
-        net = tf.layers.dense(net, 128, activation=tf.nn.relu)
-        net = tf.layers.dense(net, 64, activation=tf.nn.relu)
+        net = tf.layers.dense(net, 256, activation=tf.nn.leaky_relu)
+        net = tf.layers.dense(net, 128, activation=tf.nn.leaky_relu)
+        net = tf.layers.dense(net, 64, activation=tf.nn.leaky_relu)
 
         return net

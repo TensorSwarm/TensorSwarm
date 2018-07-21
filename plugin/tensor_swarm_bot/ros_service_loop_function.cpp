@@ -171,7 +171,7 @@ void ROSServiceLoopFunction::PostStep() {
     CTensorSwarmBot &cController = dynamic_cast<CTensorSwarmBot &>(robot->GetControllableEntity().GetController());
 
     double reward = 0.0;
-    constexpr double reward_penalty = -15.0;
+    constexpr double reward_penalty = -1.0;
     constexpr double arrival_reward = 15.0;
     constexpr double distance_reward = 3.0;
     constexpr double angular_vel_penalty = -0.1;
@@ -199,11 +199,8 @@ void ROSServiceLoopFunction::PostStep() {
     }
 
     const auto goal_progress = cController.goalProgress(position);
-    if (goal_progress < 0.0) {
-      reward += distance_reward * goal_progress * 2.0;
-    } else {
-      reward += distance_reward * goal_progress;
-    }
+    reward += distance_reward * goal_progress;
+
     //std::cout << "Distance reward: " << distance_reward * goal_progress << std::endl;
 
 
