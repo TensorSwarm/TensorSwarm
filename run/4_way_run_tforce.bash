@@ -6,4 +6,4 @@ roscore &
 
 catkin_make && argos3 -c src/tensorswarm/argos_worlds/4_way_tforce.argos &
 
-python2 src/tensorswarm/scripts/tensorforce/argosAgent.py
+python2 src/tensorswarm/scripts/tensorforce_plugin/argosAgent.py
