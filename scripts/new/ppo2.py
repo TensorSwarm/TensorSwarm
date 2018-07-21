@@ -255,6 +255,7 @@ def learn(policy, env, nsteps, total_timesteps, ent_coef, lr,
     tfirststart = time.time()
 
     nupdates = total_timesteps//nbatch
+    assert(nupdates > 0)
     for update in range(1, nupdates+1):
         assert nbatch % nminibatches == 0
         nbatch_train = nbatch // nminibatches
@@ -323,6 +324,7 @@ def learn(policy, env, nsteps, total_timesteps, ent_coef, lr,
             savepath = osp.join(checkdir, "r"+"{:.2f}".format(safemean([epinfo['r'] for epinfo in epinfobuf])) + '%.5i'%update)
             print('Saving to', savepath)
             model.save(savepath)
+    print("Done with training. Exiting.")
     env.close()
     return model
 

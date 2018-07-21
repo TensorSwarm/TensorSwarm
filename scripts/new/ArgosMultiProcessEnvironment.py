@@ -170,3 +170,14 @@ class ArgosMultiProcessEnvironment(gym.Env):
 
         self.ep_len_counter = 0
         return range(0, self.num_robots), obs
+
+    def close(self):
+        print("Closing environment")
+        self.p1.terminate()
+        self.p2.terminate()
+        self.p3.terminate()
+        self.p4.terminate()
+        self.p1.join()
+        self.p2.join()
+        self.p3.join()
+        self.p4.join()
