@@ -2,9 +2,6 @@
 
 # Introduction
 
-*This framework was developed in private time and just released. You WILL run into problems when trying to use it. Please create issues for problems you encounter and I will do my best to
-resolve them*.
-
 TensorSwarm is an open source framework for reinforcement learning of robot swarms. Each robot in the swarm uses the same single behaviour policy with the included neural network,
 but different approaches are also supported.
 
@@ -14,7 +11,8 @@ It connects the open source robot swarm simulation [Argos 3](https://github.com/
 A working neural network configuration is already provided following the ideas from [Towards Optimally Decentralized Multi-Robot Collision Avoidance via
 Deep Reinforcement Learning](https://arxiv.org/abs/1709.10082)
 
-A video of the framwork in action can be found here: https://www.youtube.com/watch?v=GDV5NgrER5U
+Video:
+https://youtu.be/GDV5NgrER5U
 
 # Features
 
@@ -89,6 +87,9 @@ To run this experiments execute in your catkin work space:
 
 For each simulation window you have to hit FastForward (>> Button) to get the simulations running as they all start paused by default.
 
+# Contact
+
+For personal requests or commercial support write to: ai@deeplearningrobotics.ai
 
 
 
