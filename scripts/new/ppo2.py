@@ -22,6 +22,7 @@
 import os
 import time
 import joblib
+import tensorboard_logging
 import numpy as np
 import os.path as osp
 import tensorflow as tf
@@ -228,6 +229,9 @@ def learn(policy, env, nsteps, total_timesteps, ent_coef, lr,
     else: assert callable(cliprange)
     total_timesteps = int(total_timesteps)
 
+    time_str = time.strftime("%m_%m_%H_%M_%S")
+    board_logger = tensorboard_logging.Logger(os.path.join(logger.get_dir(), "tf_board", time_str))
+
     nenvs = 1
     #nenvs = env.num_envs
     ob_space = env.observation_space
@@ -310,6 +314,8 @@ def learn(policy, env, nsteps, total_timesteps, ent_coef, lr,
             for (lossval, lossname) in zip(lossvals, model.loss_names):
                 logger.logkv(lossname, lossval)
             logger.dumpkvs()
+            board_logger.log_scalar("eprewmean", safemean([epinfo['r'] for epinfo in epinfobuf]), update)
+            board_logger.flush()
         if save_interval and (update % save_interval == 0 or update == 1) and logger.get_dir():
             checkdir = osp.join(logger.get_dir(), 'checkpoints')
             if not os.path.isdir(checkdir):
