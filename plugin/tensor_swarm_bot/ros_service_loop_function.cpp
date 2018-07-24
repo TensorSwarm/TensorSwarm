@@ -171,7 +171,7 @@ void ROSServiceLoopFunction::PostStep() {
     CTensorSwarmBot &cController = dynamic_cast<CTensorSwarmBot &>(robot->GetControllableEntity().GetController());
 
     double reward = 0.0;
-    constexpr double reward_penalty = -1.0;
+    constexpr double reward_penalty = -0.25;
     constexpr double arrival_reward = 15.0;
     constexpr double distance_reward = 3.0;
     constexpr double angular_vel_penalty = -0.1;

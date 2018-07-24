@@ -19,6 +19,11 @@
 # THE SOFTWARE.
 
 #!/usr/bin/env python3
+
+import os
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+
+
 import sys
 #from baselines import logger
 import ppo2
@@ -39,70 +44,71 @@ def train(num_timesteps, seed):
     config = tf.ConfigProto(
                             intra_op_parallelism_threads=ncpu,
                             inter_op_parallelism_threads=ncpu,
-                            )
-    #config.graph_options.optimizer_options.global_jit_level = tf.OptimizerOptions.ON_1
 
+                            )
+    gpu_fraction = 0.7
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=gpu_fraction)
 
     logger.configure("/home/pasa/deeplearning/tf_models/")
 
-    tf.Session(config=config).__enter__()
+    tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)).__enter__()
 
     start_poses = list()
 
     start_poses.append(Pose2D(2.3, 1.6, math.pi/2))
     start_poses.append(Pose2D(2.3, 1.3, math.pi/2))
-    # start_poses.append(Pose2D(2.3, 1.0, math.pi/2))
-    # start_poses.append(Pose2D(2.7, 1.6, math.pi/2))
-    # start_poses.append(Pose2D(2.7, 1.3, math.pi/2))
-    # start_poses.append(Pose2D(2.7, 1.0, math.pi/2))
+    start_poses.append(Pose2D(2.3, 1.0, math.pi/2))
+    start_poses.append(Pose2D(2.7, 1.6, math.pi/2))
+    #start_poses.append(Pose2D(2.7, 1.3, math.pi/2))
+    #start_poses.append(Pose2D(2.7, 1.0, math.pi/2))
 
     start_poses.append(Pose2D(1.6, 2.3, 0.0))
     start_poses.append(Pose2D(1.3, 2.3, 0.0))
-    # start_poses.append(Pose2D(1.0, 2.3, 0.0))
-    # start_poses.append(Pose2D(1.6, 2.7, 0.0))
-    # start_poses.append(Pose2D(1.3, 2.7, 0.0))
-    # start_poses.append(Pose2D(1.0, 2.7, 0.0))
+    start_poses.append(Pose2D(1.0, 2.3, 0.0))
+    start_poses.append(Pose2D(1.6, 2.7, 0.0))
+    #start_poses.append(Pose2D(1.3, 2.7, 0.0))
+    #start_poses.append(Pose2D(1.0, 2.7, 0.0))
 
     # X neg
     start_poses.append(Pose2D(-2.3, 1.6, math.pi/2))
     start_poses.append(Pose2D(-2.3, 1.3, math.pi/2))
-    # start_poses.append(Pose2D(-2.3, 1.0, math.pi/2))
-    # start_poses.append(Pose2D(-2.7, 1.6, math.pi/2))
-    # start_poses.append(Pose2D(-2.7, 1.3, math.pi/2))
-    # start_poses.append(Pose2D(-2.7, 1.0, math.pi/2))
+    start_poses.append(Pose2D(-2.3, 1.0, math.pi/2))
+    #start_poses.append(Pose2D(-2.7, 1.6, math.pi/2))
+    #start_poses.append(Pose2D(-2.7, 1.3, math.pi/2))
+    #start_poses.append(Pose2D(-2.7, 1.0, math.pi/2))
 
     start_poses.append(Pose2D(-1.6, 2.3, -math.pi))
     start_poses.append(Pose2D(-1.3, 2.3, -math.pi))
-    # start_poses.append(Pose2D(-1.0, 2.3, -math.pi))
-    # start_poses.append(Pose2D(-1.6, 2.7, -math.pi))
-    # start_poses.append(Pose2D(-1.3, 2.7, -math.pi))
-    # start_poses.append(Pose2D(-1.0, 2.7, -math.pi))
+    start_poses.append(Pose2D(-1.0, 2.3, -math.pi))
+    #start_poses.append(Pose2D(-1.6, 2.7, -math.pi))
+    #start_poses.append(Pose2D(-1.3, 2.7, -math.pi))
+    #start_poses.append(Pose2D(-1.0, 2.7, -math.pi))
 
     # Y neg
     start_poses.append(Pose2D(2.3, -1.6, -math.pi/2))
-    # start_poses.append(Pose2D(2.3, -1.3, -math.pi/2))
-    # start_poses.append(Pose2D(2.3, -1.0, -math.pi/2))
+    start_poses.append(Pose2D(2.3, -1.3, -math.pi/2))
+    #start_poses.append(Pose2D(2.3, -1.0, -math.pi/2))
     # start_poses.append(Pose2D(2.7, -1.6, -math.pi/2))
     # start_poses.append(Pose2D(2.7, -1.3, -math.pi/2))
     # start_poses.append(Pose2D(2.7, -1.0, -math.pi/2))
     #
     start_poses.append(Pose2D(1.6, -2.3, 0.0))
-    # start_poses.append(Pose2D(1.3, -2.3, 0.0))
-    # start_poses.append(Pose2D(1.0, -2.3, 0.0))
+    start_poses.append(Pose2D(1.3, -2.3, 0.0))
+   # start_poses.append(Pose2D(1.0, -2.3, 0.0))
     # start_poses.append(Pose2D(1.6, -2.7, 0.0))
     # start_poses.append(Pose2D(1.3, -2.7, 0.0))
     # start_poses.append(Pose2D(1.0, -2.7, 0.0))
 
     # # Both neg
     start_poses.append(Pose2D(-2.3, -1.6, -math.pi/2))
-    # start_poses.append(Pose2D(-2.3, -1.3, -math.pi/2))
+  #  start_poses.append(Pose2D(-2.3, -1.3, -math.pi/2))
     # start_poses.append(Pose2D(-2.3, -1.0, -math.pi/2))
     # start_poses.append(Pose2D(-2.7, -1.6, -math.pi/2))
     # start_poses.append(Pose2D(-2.7, -1.3, -math.pi/2))
     # start_poses.append(Pose2D(-2.7, -1.0, -math.pi/2))
     #
     start_poses.append(Pose2D(-1.6, -2.3, -math.pi))
-    # start_poses.append(Pose2D(-1.3, -2.3, -math.pi))
+ #   start_poses.append(Pose2D(-1.3, -2.3, -math.pi))
     # start_poses.append(Pose2D(-1.0, -2.3, -math.pi))
     # start_poses.append(Pose2D(-1.6, -2.7, -math.pi))
     # start_poses.append(Pose2D(-1.3, -2.7, -math.pi))
@@ -115,46 +121,46 @@ def train(num_timesteps, seed):
 
     goal_poses.append(Pose2D(0.0, 2.3, 0.0))
     goal_poses.append(Pose2D(0.3, 2.3, 0.0))
-    # goal_poses.append(Pose2D(0.6, 2.3, 0.0))
-    # goal_poses.append(Pose2D(0.0, 2.7, 0.0))
-    # goal_poses.append(Pose2D(0.3, 2.7, 0.0))
-    # goal_poses.append(Pose2D(0.6, 2.7, 0.0))
+    goal_poses.append(Pose2D(0.6, 2.3, 0.0))
+    goal_poses.append(Pose2D(0.0, 2.7, 0.0))
+#    goal_poses.append(Pose2D(0.3, 2.7, 0.0))
+#    goal_poses.append(Pose2D(0.6, 2.7, 0.0))
 
     goal_poses.append(Pose2D(2.3, 0.0, math.pi))
     goal_poses.append(Pose2D(2.3, 0.3, math.pi))
-    # goal_poses.append(Pose2D(2.3, 0.6, math.pi))
-    # goal_poses.append(Pose2D(2.7, 0.0, math.pi))
-    # goal_poses.append(Pose2D(2.7, 0.3, math.pi))
-    # goal_poses.append(Pose2D(2.7, 0.6, math.pi))
+    goal_poses.append(Pose2D(2.3, 0.6, math.pi))
+    goal_poses.append(Pose2D(2.7, 0.0, math.pi))
+#    goal_poses.append(Pose2D(2.7, 0.3, math.pi))
+#    goal_poses.append(Pose2D(2.7, 0.6, math.pi))
 
     # X neg
 
     goal_poses.append(Pose2D(-0.0, 2.3, 0.0))
     goal_poses.append(Pose2D(-0.3, 2.3, 0.0))
-    #goal_poses.append(Pose2D(-0.6, 2.3, 0.0))
-    # goal_poses.append(Pose2D(-0.0, 2.7, 0.0))
-    # goal_poses.append(Pose2D(-0.3, 2.7, 0.0))
-    # goal_poses.append(Pose2D(-0.6, 2.7, 0.0))
+    goal_poses.append(Pose2D(-0.6, 2.3, 0.0))
+#    goal_poses.append(Pose2D(-0.0, 2.7, 0.0))
+#    goal_poses.append(Pose2D(-0.3, 2.7, 0.0))
+#    goal_poses.append(Pose2D(-0.6, 2.7, 0.0))
 
     goal_poses.append(Pose2D(-2.3, 0.0, math.pi/2))
     goal_poses.append(Pose2D(-2.3, 0.3, math.pi/2))
-    # goal_poses.append(Pose2D(-2.3, 0.6, math.pi/2))
-    # goal_poses.append(Pose2D(-2.7, 0.0, math.pi/2))
-    # goal_poses.append(Pose2D(-2.7, 0.3, math.pi/2))
-    # goal_poses.append(Pose2D(-2.7, 0.6, math.pi/2))
+    goal_poses.append(Pose2D(-2.3, 0.6, math.pi/2))
+#    goal_poses.append(Pose2D(-2.7, 0.0, math.pi/2))
+#    goal_poses.append(Pose2D(-2.7, 0.3, math.pi/2))
+#    goal_poses.append(Pose2D(-2.7, 0.6, math.pi/2))
 
 # Y neg
 
     goal_poses.append(Pose2D(0.0, -2.3, 0.0))
-    #goal_poses.append(Pose2D(0.3, -2.3, 0.0))
-    # goal_poses.append(Pose2D(0.6, -2.3, 0.0))
+    goal_poses.append(Pose2D(0.3, -2.3, 0.0))
+#    goal_poses.append(Pose2D(0.6, -2.3, 0.0))
     # goal_poses.append(Pose2D(0.0, -2.7, 0.0))
     # goal_poses.append(Pose2D(0.3, -2.7, 0.0))
     # goal_poses.append(Pose2D(0.6, -2.7, 0.0))
     #
     goal_poses.append(Pose2D(2.3, -0.0, math.pi/2))
-    # goal_poses.append(Pose2D(2.3, -0.3, math.pi/2))
-    # goal_poses.append(Pose2D(2.3, -0.6, math.pi/2))
+    goal_poses.append(Pose2D(2.3, -0.3, math.pi/2))
+#    goal_poses.append(Pose2D(2.3, -0.6, math.pi/2))
     # goal_poses.append(Pose2D(2.7, -0.0, math.pi/2))
     # goal_poses.append(Pose2D(2.7, -0.3, math.pi/2))
     # goal_poses.append(Pose2D(2.7, -0.6, math.pi/2))
@@ -175,16 +181,17 @@ def train(num_timesteps, seed):
 #     goal_poses.append(Pose2D(-2.7, -1.3, math.pi/2))
 #     goal_poses.append(Pose2D(-2.7, -1.6, math.pi/2))
 
+    print("Number of robots: " + str(len(start_poses)))
 
     env = ArgosMultiProcessEnvironment(start_poses, goal_poses)
-    ppo2.learn(policy=RobotPolicy, env=env, nsteps=196, nminibatches=1,
-               lam=0.95, gamma=0.99, noptepochs=10, log_interval=1,
+    ppo2.learn(policy=RobotPolicy, env=env, nsteps=128+128, nminibatches=8,
+               lam=0.95, gamma=0.95, noptepochs=10, log_interval=1,
                ent_coef=.01,
-               lr=lambda f : f * 1.0e-3,
+               lr=lambda f : f * 1.0e-4,
                cliprange=lambda f : f * 0.3,
                total_timesteps=int(num_timesteps * 1.1),
                save_interval=50,
-               #restore_path="/home/pasa/deeplearning/tf_models/checkpoints/r0.3300150",
+               #restore_path="/home/pasa/deeplearning/tf_models/checkpoints/r1.7900050",
                deterministic=False
                )
 
@@ -192,7 +199,7 @@ def main():
     np.set_printoptions(suppress=True,
                         formatter={'float_kind':'{:0.2f}'.format})
 
-    train(num_timesteps=30000, seed=50)
+    train(num_timesteps=1200000, seed=50)
 
 if __name__ == '__main__':
     main()

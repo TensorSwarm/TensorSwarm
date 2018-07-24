@@ -63,7 +63,7 @@
         <distribute>
             <position method="uniform" min="-10.0,-10,0" max="10.0,10.0,0"/>
             <orientation method="constant" values="0,0,0"/>
-            <entity quantity="12" max_trials="100">
+            <entity quantity="20" max_trials="100">
                 <foot-bot id="bot">
                     <controller config="argos_ros_bot"/>
                 </foot-bot>

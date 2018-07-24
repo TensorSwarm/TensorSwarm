@@ -36,10 +36,13 @@ def train(num_timesteps, seed):
     np.seterr(invalid='raise')
 
     ncpu = multiprocessing.cpu_count()
-    config = tf.ConfigProto(allow_soft_placement=False,
+
+    config = tf.ConfigProto(allow_soft_placement=True,
                             intra_op_parallelism_threads=ncpu,
                             inter_op_parallelism_threads=ncpu,
                             device_count={'GPU': 0})
+
+    config.gpu_options.allow_growth = True
     config.graph_options.optimizer_options.global_jit_level = tf.OptimizerOptions.ON_1
 
     logger.configure("/tmp/tf_models/")
@@ -50,42 +53,42 @@ def train(num_timesteps, seed):
 
     start_poses.append(Pose2D(0.0, 1.0, -math.pi/2))
     start_poses.append(Pose2D(0.0, -1.0, math.pi/2))
-    start_poses.append(Pose2D(1.0, 0.0, math.pi))
-    start_poses.append(Pose2D(-1.0, 0.0, 0.0))
+    # start_poses.append(Pose2D(1.0, 0.0, math.pi))
+    # start_poses.append(Pose2D(-1.0, 0.0, 0.0))
 
     start_poses.append(Pose2D(0.0, 1.3, -math.pi/2))
     start_poses.append(Pose2D(0.0, -1.3, math.pi/2))
-    start_poses.append(Pose2D(1.3, 0.0, math.pi))
-    start_poses.append(Pose2D(-1.3, 0.0, 0.0))
+    # start_poses.append(Pose2D(1.3, 0.0, math.pi))
+    # start_poses.append(Pose2D(-1.3, 0.0, 0.0))
 
     #########
     start_poses.append(Pose2D(-1.0, 0.0-3, 0.0))
     start_poses.append(Pose2D(0.0, 1.0-3, -math.pi/2))
-    start_poses.append(Pose2D(1.0, 0.0-3, math.pi))
-    start_poses.append(Pose2D(0.0, -1.0-3, math.pi/2))
+    # start_poses.append(Pose2D(1.0, 0.0-3, math.pi))
+    # start_poses.append(Pose2D(0.0, -1.0-3, math.pi/2))
 
     start_poses.append(Pose2D(-1.3, 0.0-3, 0.0))
     start_poses.append(Pose2D(0.0, 1.3-3, -math.pi/2))
-    start_poses.append(Pose2D(1.3, 0.0-3, math.pi))
-    start_poses.append(Pose2D(0.0, -1.3-3, math.pi/2))
+    # start_poses.append(Pose2D(1.3, 0.0-3, math.pi))
+    # start_poses.append(Pose2D(0.0, -1.3-3, math.pi/2))
 
     #####
     start_poses.append(Pose2D(-1.0, 0.0+3, 0.0))
     start_poses.append(Pose2D(0.0, -1.0+3, math.pi/2))
-    start_poses.append(Pose2D(1.0, 0.0+3, math.pi))
-    start_poses.append(Pose2D(0.0, 1.0+3, -math.pi/2))
+    # start_poses.append(Pose2D(1.0, 0.0+3, math.pi))
+    # start_poses.append(Pose2D(0.0, 1.0+3, -math.pi/2))
     #
     start_poses.append(Pose2D(-1.3, 0.0+3, 0.0))
     start_poses.append(Pose2D(0.0, -1.3+3, math.pi/2))
-    start_poses.append(Pose2D(1.3, 0.0+3, math.pi))
-    start_poses.append(Pose2D(0.0, 1.3+3, -math.pi/2))
+    # start_poses.append(Pose2D(1.3, 0.0+3, math.pi))
+    # start_poses.append(Pose2D(0.0, 1.3+3, -math.pi/2))
 
     ####
 
     start_poses.append(Pose2D(0.0-3, 1.0, -math.pi/2))
     start_poses.append(Pose2D(0.0-3, -1.0, math.pi/2))
-    start_poses.append(Pose2D(1.0-3, 0.0, math.pi))
-    start_poses.append(Pose2D(-1.0-3, 0.0, 0.0))
+    # start_poses.append(Pose2D(1.0-3, 0.0, math.pi))
+    # start_poses.append(Pose2D(-1.0-3, 0.0, 0.0))
     #
     start_poses.append(Pose2D(0.0-3, 1.3, -math.pi/2))
     start_poses.append(Pose2D(0.0-3, -1.3, math.pi/2))

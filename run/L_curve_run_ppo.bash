@@ -9,4 +9,4 @@ argos3 -c src/tensorswarm/argos_worlds/l_curve.argos &
 argos3 -c src/tensorswarm/argos_worlds/l_curve.argos &
 argos3 -c src/tensorswarm/argos_worlds/l_curve.argos &
 
-python2 src/tensorswarm/scripts/new/RunExperimentLCurve.py
+#python2 src/tensorswarm/scripts/new/RunExperimentLCurve.py
